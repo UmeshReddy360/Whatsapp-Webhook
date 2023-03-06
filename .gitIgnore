@@ -1,2 +1,3 @@
 .gitIgnore
+node_modules
 .env

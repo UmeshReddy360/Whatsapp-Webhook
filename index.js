@@ -64,6 +64,7 @@ app.post("/webhook", (req, res) => {
   }
 });
 
+// check if API is running
 app.get("/", (req, res) => {
   res.status(200).send("Whatsapp webhook test");
 });
