@@ -8,18 +8,22 @@ app.listen(8000 || process.env.PORT, () => {
 });
 const token = process.env.TOKEN;
 const myToken = process.env.MYTOKEN;
+
+// to verify callback url frm whatsapp product dashboard API
 app.get("/webhook", (req, res) => {
   let mode = req.query["hub.mode"];
   let challenge = req.query["hub.challenge"];
   let token = req.query["hub.verify_token"];
-  if (node && token) {
-    if (node === "subscribe" && token === myToken) {
+  if (mode && token) {
+    if (mode === "subscribe" && token === myToken) {
       res.status(200).send(challenge);
     } else {
       res.status(403);
     }
   }
 });
+
+// post req to reply from API  to end user messages
 app.post("/webhook", (req, res) => {
   let body_param = req.body;
   console.log(JSON.stringify(body_param, null, 2));
@@ -34,7 +38,7 @@ app.post("/webhook", (req, res) => {
         body_param.entry[0].changes[0].value.metadata.phone_number_id;
       let from = body_param.entry[0].changes[0].value.messages[0].from;
       let msg_body = body_param.entry[0].changes[0].value.messages[0].text.body;
-      console.log(body_param, from, msg_body);
+      console.log("Data fetched : ", body_param, from, msg_body);
       axios({
         method: "POST",
         url:
