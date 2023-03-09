@@ -2,14 +2,13 @@ const express = require("express");
 const body_parser = require("body-parser");
 const app = express().use(body_parser.json());
 const axios = require("axios");
-require("dotenv").config;
+const { config } = require("dotenv");
+require("dotenv").config();
 app.listen(8000 || process.env.PORT, () => {
   console.log("Webhook listining");
 });
-const token =
-  "EAAx8f4qdynsBAKyCP4rjrZCg4ZB0ZABCFOhcjiCDZCN6zaG2cMZB0YZA9hxoZCD8OWY4FzHw3v4bEeQ7Jcz9U3saeBYamI9jmg6tspm7Cm2WxzIZCy83XAJ4JTTc1U7U5nT4E1w6ZAQAQSIEJn5HUIIxCbr2H5uL0loLmMOPSdF4xSBn3Pv8Ee5rLNlZA70ZCstswpzuSGJ7mWxzwZDZD";
-const myToken = "12345678";
-console.log("Tokens are : ", token, myToken);
+const token = process.env.TOKEN;
+const myToken = process.env.MYTOKEN;
 // to verify callback url frm whatsapp product dashboard API
 app.get("/webhook", (req, res) => {
   let mode = req.query["hub.mode"];
